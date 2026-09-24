@@ -1,0 +1,41 @@
+# ============================================================
+# fieldrobo - Gazebo Fortress <-> ROS 2 bridge configuration
+# ============================================================
+
+# ============================================================
+# Simulation clock
+# ============================================================
+
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "ignition.msgs.Clock"
+  direction: GZ_TO_ROS
+
+# ------------------------------------------------------------
+# Robot pose from Gazebo (world frame)
+# Needed for Gazebo visual to match ROS TF
+# ------------------------------------------------------------
+- ros_topic_name: "/model/husky/pose"
+  gz_topic_name: "/model/husky/pose"
+  ros_type_name: "geometry_msgs/msg/PoseArray"
+  gz_type_name: "ignition.msgs.Pose_V"
+  direction: GZ_TO_ROS
+
+# ------------------------------------------------------------
+# IMU
+# Gazebo Fortress:
+#   /imu
+#   ignition.msgs.IMU
+#
+# ROS 2:
+#   /imu/data_raw
+#   sensor_msgs/msg/Imu
+# ------------------------------------------------------------
+
+- ros_topic_name: "/imu/data_raw"
+  gz_topic_name: "/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "ignition.msgs.IMU"
+  direction: GZ_TO_ROS
+  qos_profile: SENSOR_DATA

@@ -1,0 +1,88 @@
+# Task 2: RTAB-Map 3D LiDAR SLAM using external wheel odometry.
+#
+# Algorithm parameters only — topics/frames/odometry source are
+# configured in task2_nav.launch.py via launch arguments and remaps.
+
+rtabmap:
+  ros__parameters:
+    use_sim_time: true
+
+    # Frames
+    frame_id:       base_link
+    odom_frame_id:  odom
+    map_frame_id:   map
+    publish_tf:     true
+
+    # Sensor subscriptions (must match launch arguments)
+    depth:                false
+    subscribe_rgb:        false
+    subscribe_rgbd:       false
+    subscribe_scan:       false
+    subscribe_scan_cloud: true
+    subscribe_odom:       true
+    subscribe_odom_info:  false
+
+    # Synchronization
+    approx_sync:       true
+    odom_sensor_sync:  true
+    topic_queue_size:  30
+    sync_queue_size:   30
+    wait_for_transform: 0.5
+
+    # ------------------------------------------------------------------
+    # Registration / LiDAR ICP
+    # ------------------------------------------------------------------
+    Reg/Strategy:    "1"       # ICP
+    Reg/Force3DoF:   "true"    # Ground robot — constrain to 2-D plane
+
+    Icp/VoxelSize:                 "0.10"
+    Icp/MaxCorrespondenceDistance: "1.0"
+    Icp/Iterations:                "10"
+    Icp/CorrespondenceRatio:       "0.20"
+    Icp/PointToPlaneRadius:        "0"    # suppress auto-set warning
+
+    # ------------------------------------------------------------------
+    # RGBD / graph
+    # ------------------------------------------------------------------
+    RGBD/Enabled:                    "false"
+    RGBD/LinearUpdate:               "0.10"
+    RGBD/AngularUpdate:              "0.10"
+    RGBD/ProximityBySpace:           "true"
+    RGBD/ProximityPathMaxNeighbors:  "1"
+    RGBD/ProximityMaxGraphDepth:     "0"
+    RGBD/CreateOccupancyGrid:        "true"
+    RGBD/NeighborLinkRefining:       "true"
+    RGBD/ProximityPathFilteringRadius: "1.0"
+
+    # ------------------------------------------------------------------
+    # Occupancy grid — built from LiDAR scan cloud (Grid/Sensor=0)
+    # ------------------------------------------------------------------
+    Grid/Sensor:              "1"      # 0 = laser scan / point cloud
+    Grid/3D:                  "false"
+    Grid/CellSize:            "0.05"
+    Grid/RangeMin:            "0.20"
+    Grid/RangeMax:            "20.0"
+    Grid/MaxObstacleHeight:   "1.8"
+    Grid/MinGroundHeight:     "-0.20"
+    Grid/NormalsSegmentation: "false"
+    Grid/NoiseFilteringRadius: "0.0"
+    Grid/NoiseFilteringMinNeighbors: "5"
+    Grid/MapFrameProjection:  "true"
+    Grid/PreVoxelFiltering:   "true"
+    Grid/ScanDecimation:      "2"
+
+    # ------------------------------------------------------------------
+    # Memory / graph
+    # ------------------------------------------------------------------
+    Mem/IncrementalMemory:   "true"
+    Mem/InitWMWithAllNodes:  "false"
+    Mem/NotLinkedNodesKept:  "false"
+    Mem/STMSize:             "30"
+
+    # Disable bag-of-words (no camera images)
+    Kp/MaxFeatures: "-1"
+
+    # ------------------------------------------------------------------
+    # Graph optimisation
+    # ------------------------------------------------------------------
+    Optimizer/Strategy: "1"   # g2o
