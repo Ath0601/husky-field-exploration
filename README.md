@@ -25,17 +25,17 @@ Built for a PhD position assignment in Field Robotics:
 ```mermaid
 flowchart LR
     subgraph Gazebo
-        SIM[Gazebo Fortress] --- HUSKY[Husky\nVLP-16 LiDAR + IMU]
+        SIM["Gazebo Fortress"] --- HUSKY["Husky<br/>VLP-16 LiDAR + IMU"]
     end
-    HUSKY -->|ros_gz_bridge| BR{{/velodyne_points,\n/imu/data_raw, /clock}}
-    BR --> RTAB[RTAB-Map\n2D occupancy grid SLAM]
-    BR --> ODOM[/husky_velocity_controller/odom]
-    RTAB --> MAP[/map]
-    MAP --> EXP[Information-gain\nfrontier explorer]
-    EXP -->|NavigateToPose| NAV2[Nav2\nNavFn + DWB]
-    NAV2 -->|cmd_vel_unstamped| CTRL[husky_velocity_controller\ngz_ros2_control]
-    TRAJ[trajectory_generator\ncircular references] -->|/reference_pose| PC[pose_controller\nfeed-forward + feedback]
-    PC -->|cmd_vel_unstamped| CTRL
+    HUSKY -->|ros_gz_bridge| BR{{"/velodyne_points,<br/>/imu/data_raw, /clock"}}
+    BR --> RTAB["RTAB-Map<br/>2D occupancy grid SLAM"]
+    BR --> ODOM["/husky_velocity_controller/odom"]
+    RTAB --> MAP["/map"]
+    MAP --> EXP["Information-gain<br/>frontier explorer"]
+    EXP -->|"NavigateToPose"| NAV2["Nav2<br/>NavFn + DWB"]
+    NAV2 -->|"cmd_vel_unstamped"| CTRL["husky_velocity_controller<br/>gz_ros2_control"]
+    TRAJ["trajectory_generator<br/>circular references"] -->|"/reference_pose"| PC["pose_controller<br/>feed-forward + feedback"]
+    PC -->|"cmd_vel_unstamped"| CTRL
     ODOM --> PC
     CTRL --> HUSKY
 ```
