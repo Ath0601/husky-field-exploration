@@ -255,9 +255,9 @@ The video shows:
 
 ## AI tool usage
 
-<!-- As required by the assignment, state which AI tools were used and for
-what (e.g. launch-file boilerplate, debugging bridge topic mismatches,
-documentation drafting), and what you built and verified yourself. -->
+An LLM-based AI assistant (Sarvam AI) was used for repository/code analysis, report structuring and drafting
+assistance. Technical claims were checked against the implementation and configuration files; the experimental
+interpretation, prioritization and final research direction were decided and edited by the author.
 
 ## License
 
