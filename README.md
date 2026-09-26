@@ -13,13 +13,6 @@ Built for a PhD position assignment in Field Robotics:
 | 2 | State-of-the-art navigation stack with technical description of each sub-component | `config/nav2params.yaml`, `config/rtabmap_params.yaml`, `launch/task2_nav.launch.py` |
 | 3 | Deployment of controller + navigation stack for exploration of an unknown environment | `fieldrobo/frontier_explorer.py`, `launch/task3_explorer.launch.py`, `world/task3_explorer.sdf` |
 
-## Video results
-
-<!-- Add links to your demo videos here -->
-
-- Task 1 — pose-to-pose and circular trajectory tracking: [link]()
-- Task 3 — autonomous exploration: [link]()
-
 ## System overview
 
 ```mermaid
