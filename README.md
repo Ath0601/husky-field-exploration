@@ -213,11 +213,52 @@ fieldrobo/
 └── config/rviz/     # RViz configurations for control and navigation
 ```
 
-## Results, limitations and future work
+## 🎥 Demonstration Videos
 
-<!-- Summarize: tracking accuracy for Task 1, exploration coverage and
-completion time for Task 3, and the limitations you discovered. The full
-discussion lives in the submitted assignment PDF. -->
+The following videos demonstrate the implementation and results for each assignment task.
+
+### Task 1 — Controller Evaluation
+
+Demonstrates the custom ROS 2 pose/trajectory controller, including:
+
+- Pose-to-pose navigation using position and heading references.
+- Circular trajectory generation and tracking.
+- Closed-loop feedback using Husky odometry.
+
+**Video:**
+[Task 1 — Pose-to-Pose and Circular Trajectory Tracking](videos/task1_controller.mp4)
+
+---
+
+### Task 2 — Navigation and Exploration Stack
+
+Demonstrates the implemented navigation stack, including:
+
+- VLP-16 LiDAR perception.
+- RTAB-Map mapping.
+- Nav2 global and local planning.
+- Frontier/information-gain based exploration.
+- Autonomous navigation to selected exploration goals.
+
+**Video:**
+[Task 2 — Navigation and Exploration Stack](videos/task2_navigation_stack.mp4)
+
+---
+
+### Task 3 — Autonomous Exploration
+
+Demonstrates the complete autonomous exploration system operating in the unknown Gazebo environment.
+
+The video shows:
+
+- Autonomous frontier selection.
+- Nav2 path planning and execution.
+- Incremental occupancy-map construction.
+- Autonomous movement of the Husky through the environment.
+- Final explored map.
+
+**Video:**
+[Task 3 — Autonomous Exploration](videos/task3_autonomous_exploration.mp4)
 
 ## AI tool usage
 
