@@ -21,9 +21,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
 
-    # ============================================================
     # Package paths
-    # ============================================================
 
     pkg_share = FindPackageShare('fieldrobo')
 
@@ -48,17 +46,11 @@ def generate_launch_description():
         LaunchConfiguration('rviz_config')
     ])
 
-
-    # ============================================================
     # Launch arguments
-    # ============================================================
 
     use_sim_time = LaunchConfiguration('use_sim_time')
 
-
-    # ============================================================
     # Robot description
-    # ============================================================
 
     robot_description_content = Command([
         FindExecutable(name='xacro'),
@@ -66,9 +58,7 @@ def generate_launch_description():
         xacro_file
     ])
 
-    # ============================================================
     # Robot State Publisher
-    # ============================================================
 
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -88,10 +78,7 @@ def generate_launch_description():
         output='screen'
     )
 
-
-    # ============================================================
     # Gazebo Fortress
-    # ============================================================
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -108,10 +95,7 @@ def generate_launch_description():
         }.items()
     )
 
-
-    # ============================================================
     # Spawn Husky into Gazebo
-    # ============================================================
 
     create_husky = Node(
         package='ros_gz_sim',
@@ -131,10 +115,7 @@ def generate_launch_description():
         output='screen'
     )
 
-
-    # ============================================================
     # Joint State Broadcaster
-    # ============================================================
 
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
@@ -149,10 +130,7 @@ def generate_launch_description():
         output='screen'
     )
 
-
-    # ============================================================
     # Husky velocity controller
-    # ============================================================
 
     husky_velocity_controller_spawner = Node(
         package='controller_manager',
@@ -167,10 +145,7 @@ def generate_launch_description():
         output='screen'
     )
 
-
-    # ============================================================
     # ROS-Gazebo bridge
-    # ============================================================
 
     bridge = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -182,10 +157,7 @@ def generate_launch_description():
         ])
     )
 
-
-    # ============================================================
     # RViz2
-    # ============================================================
 
     rviz = Node(
         package='rviz2',
@@ -206,10 +178,7 @@ def generate_launch_description():
         output='screen'
     )
 
-
-    # ============================================================
     # Launch sequence
-    # ============================================================
 
     return LaunchDescription([
 

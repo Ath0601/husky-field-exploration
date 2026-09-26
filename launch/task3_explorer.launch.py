@@ -11,31 +11,18 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    # ============================================================
     # Package paths
-    # ============================================================
-
     pkg_share = FindPackageShare('fieldrobo')
     fieldrobo_share = get_package_share_directory('fieldrobo')
 
-
-    # ============================================================
     # Task 3 world
-    # ============================================================
-
     task3_world = PathJoinSubstitution([
         pkg_share,
         'world',
         'task3_explorer.sdf'
     ])
 
-
-    # ============================================================
     # Task 1 simulation
-    #
-    # Override the default empty world with Task 3 world
-    # ============================================================
-
     task1_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
@@ -53,22 +40,14 @@ def generate_launch_description():
         }.items()
     )
 
-
-    # ============================================================
     # Nav2 parameters
-    # ============================================================
-
     nav2_params = os.path.join(
         fieldrobo_share,
         'config',
         'nav2params.yaml'
     )
 
-
-    # ============================================================
     # RTAB-Map
-    # ============================================================
-
     rtabmap = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
@@ -106,11 +85,7 @@ def generate_launch_description():
         }.items(),
     )
 
-
-    # ============================================================
     # Nav2 lifecycle nodes
-    # ============================================================
-
     lifecycle_nodes = [
         'controller_server',
         'smoother_server',
@@ -121,21 +96,14 @@ def generate_launch_description():
         'velocity_smoother',
     ]
 
-
-    # ============================================================
     # TF remappings
-    # ============================================================
-
     remappings = [
         ('/tf', 'tf'),
         ('/tf_static', 'tf_static')
     ]
 
 
-    # ============================================================
     # Controller Server
-    # ============================================================
-
     controller_server = Node(
         package='nav2_controller',
         executable='controller_server',
@@ -148,11 +116,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # Smoother Server
-    # ============================================================
-
     smoother_server = Node(
         package='nav2_smoother',
         executable='smoother_server',
@@ -165,11 +129,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # Planner Server
-    # ============================================================
-
     planner_server = Node(
         package='nav2_planner',
         executable='planner_server',
@@ -182,11 +142,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # Behavior Server
-    # ============================================================
-
     behavior_server = Node(
         package='nav2_behaviors',
         executable='behavior_server',
@@ -199,11 +155,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # BT Navigator
-    # ============================================================
-
     bt_navigator = Node(
         package='nav2_bt_navigator',
         executable='bt_navigator',
@@ -216,11 +168,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # Waypoint Follower
-    # ============================================================
-
     waypoint_follower = Node(
         package='nav2_waypoint_follower',
         executable='waypoint_follower',
@@ -233,11 +181,7 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-
-    # ============================================================
     # Velocity Smoother
-    # ============================================================
-
     velocity_smoother = Node(
         package='nav2_velocity_smoother',
         executable='velocity_smoother',
@@ -255,11 +199,7 @@ def generate_launch_description():
         ],
     )
 
-
-    # ============================================================
     # Lifecycle Manager
-    # ============================================================
-
     lifecycle_manager = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
@@ -272,10 +212,7 @@ def generate_launch_description():
         }],
     )
 
-    # ============================================================
     # Nav2 node list
-    # ============================================================
-
     nav2_nodes = [
         controller_server,
         smoother_server,
@@ -287,23 +224,13 @@ def generate_launch_description():
         lifecycle_manager,
     ]
 
-
-    # ============================================================
     # Launch
-    # ============================================================
-
     return LaunchDescription([
-
-        # Task 1 simulation + Task 3 world
         task1_launch,
-
-        # RTAB-Map after simulation has started
         TimerAction(
             period=10.0,
             actions=[rtabmap]
         ),
-
-        # Nav2 after RTAB-Map
         TimerAction(
             period=12.0,
             actions=nav2_nodes

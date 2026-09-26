@@ -72,10 +72,7 @@ class TrajectoryGenerator(Node):
 
         if self.trajectory_type == 'circle':
 
-            # ========================================================
             # PHASE 1: Straight-line approach from spawn to circle
-            # ========================================================
-
             approach_time = self.radius / self.approach_speed
 
             if elapsed_time < approach_time:
@@ -87,10 +84,7 @@ class TrajectoryGenerator(Node):
                 # Keep robot pointing along +X
                 yaw = 0.0
 
-            # ========================================================
             # PHASE 2: Circular trajectory
-            # ========================================================
-
             else:
 
                 circle_time = elapsed_time - approach_time

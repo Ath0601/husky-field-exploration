@@ -2,11 +2,8 @@
 <sdf version="1.8">
 
   <world name="fieldrobo_world">
-
-    <!-- ========================================================= -->
-    <!-- Physics                                                   -->
-    <!-- ========================================================= -->
-
+    
+    <!-- Physics-->
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -19,11 +16,7 @@
       </camera>
     </gui>
 
-    
-    <!-- ========================================================= -->
-    <!-- Required Gazebo Fortress system plugins                  -->
-    <!-- ========================================================= -->
-
+    <!-- Required Gazebo Fortress system plugins-->
     <plugin filename="libignition-gazebo-user-commands-system.so"
         name="ignition::gazebo::systems::UserCommands"/>
     
@@ -52,10 +45,7 @@
       name="ignition::gazebo::systems::Imu">
     </plugin>
 
-    <!-- ========================================================= -->
-    <!-- Lighting                                                  -->
-    <!-- ========================================================= -->
-
+    <!-- Lighting-->
     <light name="sun"
            type="directional">
       <cast_shadows>true</cast_shadows>
@@ -71,11 +61,7 @@
       <direction>-0.5 0.5 -1</direction>
     </light>
 
-
-    <!-- ========================================================= -->
-    <!-- Ground                                                    -->
-    <!-- ========================================================= -->
-
+    <!-- Ground-->
     <model name="ground_plane">
       <static>true</static>
       <link name="link">

@@ -36,6 +36,7 @@ setup(
             'pose_control = fieldrobo.pose_controller:main',
             'traj_generate = fieldrobo.trajectory_generator:main',
             'frontier_explorer = fieldrobo.frontier_explorer:main',
+            'coverage_explorer = fieldrobo.coverage_explorer:main'
         ],
     },
 )

@@ -27,19 +27,12 @@ class PoseController(Node):
       1. stationary pose-to-pose references, and
       2. moving trajectory references.
 
-    A PoseStamped reference is sufficient: for a moving trajectory the
-    controller estimates v_ref and omega_ref from consecutive reference
-    poses. This avoids requiring a custom message type.
-
     For a moving reference, a feed-forward + feedback unicycle controller
     is used:
         v     = v_ref*cos(e_theta) + k_x*e_x
         omega = omega_ref + k_y*v_ref*e_y + k_theta*sin(e_theta)
 
     where position errors are expressed in the robot body frame.
-
-    For a stationary reference (estimated reference speed ~ 0), the
-    controller switches to a pose regulation law and finally aligns yaw.
     """
 
     def __init__(self):
@@ -244,9 +237,7 @@ class PoseController(Node):
 
         cmd = Twist()
 
-        # ------------------------------------------------------------
         # MOVING REFERENCE: trajectory tracking
-        # ------------------------------------------------------------
         if abs(self.reference_v) > self.moving_reference_speed_threshold:
 
             cmd.linear.x = (
@@ -260,9 +251,7 @@ class PoseController(Node):
                 + self.k_theta * math.sin(heading_error)
             )
 
-        # ------------------------------------------------------------
         # STATIONARY REFERENCE: pose regulation
-        # ------------------------------------------------------------
         else:
             desired_heading = math.atan2(dy, dx)
             alpha = wrap_to_pi(desired_heading - self.current_yaw)

@@ -68,13 +68,6 @@ def generate_launch_description():
         }.items(),
     )
 
-    # -----------------------------------------------------------------------
-    # Nav2 nodes launched directly — bypasses navigation_launch.py's
-    # RewrittenYaml which silently drops nested DWB critic parameters in
-    # ROS 2 Humble (see github.com/ros-navigation/navigation2/issues/4308).
-    # The params file is passed raw; use_sim_time is overridden via a second
-    # dict so there is no YAML rewriting at all.
-    # -----------------------------------------------------------------------
     lifecycle_nodes = [
         'controller_server',
         'smoother_server',
@@ -85,9 +78,6 @@ def generate_launch_description():
         'velocity_smoother',
     ]
 
-    # Only remap TF — do NOT remap cmd_vel.
-    # The Husky velocity controller subscribes to /cmd_vel directly;
-    # velocity_smoother writes cmd_vel_smoothed → cmd_vel to close the loop.
     remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
 
     controller_server = Node(
@@ -144,9 +134,6 @@ def generate_launch_description():
         remappings=remappings,
     )
 
-    # velocity_smoother reads cmd_vel (from controller) and publishes
-    # cmd_vel_smoothed; remap cmd_vel_smoothed → cmd_vel so it reaches
-    # the Husky controller.
     velocity_smoother = Node(
         package='nav2_velocity_smoother',
         executable='velocity_smoother',
