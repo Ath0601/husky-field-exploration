@@ -1,5 +1,4 @@
 # Task 2: RTAB-Map 3D LiDAR SLAM using external wheel odometry.
-#
 # Algorithm parameters only — topics/frames/odometry source are
 # configured in task2_nav.launch.py via launch arguments and remaps.
 
@@ -29,9 +28,7 @@ rtabmap:
     sync_queue_size:   30
     wait_for_transform: 0.5
 
-    # ------------------------------------------------------------------
     # Registration / LiDAR ICP
-    # ------------------------------------------------------------------
     Reg/Strategy:    "1"       # ICP
     Reg/Force3DoF:   "true"    # Ground robot — constrain to 2-D plane
 
@@ -41,9 +38,7 @@ rtabmap:
     Icp/CorrespondenceRatio:       "0.20"
     Icp/PointToPlaneRadius:        "0"    # suppress auto-set warning
 
-    # ------------------------------------------------------------------
     # RGBD / graph
-    # ------------------------------------------------------------------
     RGBD/Enabled:                    "false"
     RGBD/LinearUpdate:               "0.10"
     RGBD/AngularUpdate:              "0.10"
@@ -54,10 +49,9 @@ rtabmap:
     RGBD/NeighborLinkRefining:       "true"
     RGBD/ProximityPathFilteringRadius: "1.0"
 
-    # ------------------------------------------------------------------
-    # Occupancy grid — built from LiDAR scan cloud (Grid/Sensor=0)
-    # ------------------------------------------------------------------
-    Grid/Sensor:              "1"      # 0 = laser scan / point cloud
+
+    # Occupancy grid — built from LiDAR scan cloud
+    Grid/Sensor:              "1"
     Grid/3D:                  "false"
     Grid/CellSize:            "0.05"
     Grid/RangeMin:            "0.20"
@@ -71,9 +65,7 @@ rtabmap:
     Grid/PreVoxelFiltering:   "true"
     Grid/ScanDecimation:      "2"
 
-    # ------------------------------------------------------------------
     # Memory / graph
-    # ------------------------------------------------------------------
     Mem/IncrementalMemory:   "true"
     Mem/InitWMWithAllNodes:  "false"
     Mem/NotLinkedNodesKept:  "false"
@@ -82,7 +74,5 @@ rtabmap:
     # Disable bag-of-words (no camera images)
     Kp/MaxFeatures: "-1"
 
-    # ------------------------------------------------------------------
     # Graph optimisation
-    # ------------------------------------------------------------------
     Optimizer/Strategy: "1"   # g2o
