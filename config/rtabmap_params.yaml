@@ -12,7 +12,7 @@ rtabmap:
     map_frame_id:   map
     publish_tf:     true
 
-    # Sensor subscriptions (must match launch arguments)
+    # Sensor subscriptions
     depth:                false
     subscribe_rgb:        false
     subscribe_rgbd:       false
